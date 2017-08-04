@@ -43,11 +43,9 @@ public: //缓存基本操作
     {
     }
 
-    void map_operation(u_int64_t key, cache_c *ctx)
+    void map_operation(u_int64_t key, cache_c *ctx,char *map_key)
     {
         list_entry *cache_entry = ctx->cache_blk;
-        char map_key[40];
-        get_map_key(map_key,ctx->ti->hostname,ctx->ti->disknum,key);
 
         unordered_map<string,struct list_entry *>::iterator got = cache_map.find(map_key);
 

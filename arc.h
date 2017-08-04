@@ -74,13 +74,9 @@ public: //缓存基本操作
         cache_map_b2.clear();
     }
 
-
-
-    void map_operation(u_int64_t key, cache_c *ctx)
+    void map_operation(u_int64_t key, cache_c *ctx,char *map_key)
     {
         list_entry *cacheblk = ctx->cache_blk;
-        char map_key[40];
-        get_map_key(map_key,ctx->ti->hostname,ctx->ti->disknum,key);
         struct list_entry *le;
 
         int t1 = cache_map_t1.size();

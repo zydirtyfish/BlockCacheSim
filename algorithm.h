@@ -7,7 +7,7 @@ public: //缓存基本信息
 
 public: //缓存基本操作
 
-    virtual void map_operation(u_int64_t key, cache_c *ctx){};
+    virtual void map_operation(u_int64_t key, cache_c *ctx,char *map_key){};
     
      //分块
     struct bio * div_block(struct cache_c *ctx)
@@ -67,26 +67,31 @@ public: //缓存基本操作
 
     void read(u_int64_t block_id,struct cache_c *ctx)
     {
-        map_operation(block_id,ctx);
+        char map_key[40];
+        //构造map_key
+        get_map_key(map_key,ctx->ti->hostname,ctx->ti->disknum,block_id);
+        map_operation(block_id,ctx,map_key);
     }
 
     void write(u_int64_t block_id,struct cache_c *ctx)
     {
+        char map_key[40];
+        //构造map_key
+        get_map_key(map_key,ctx->ti->hostname,ctx->ti->disknum,block_id);
         switch(ctx->write_algorithm_conf)
         {
             case 0: //write through
                 break;
             case 1: //write back
-                map_operation(block_id, ctx);
+                map_operation(block_id, ctx,map_key);
                 break;
             case 2: //write around
                 break;
         }
         
     }
-    
 
-    void get_map_key(char *map_key,char *hostname,int disknum,u_int64_t block_id)
+	void get_map_key(char *map_key,char *hostname,int disknum,u_int64_t block_id)
     {
         //构造map_key
         char of[25];
@@ -101,8 +106,7 @@ public: //缓存基本操作
 
         sprintf(of,"%llu",block_id);
         strcat(map_key,of);
-
-        //cout << map_key << endl;
     }
+    
 
 };

@@ -1,6 +1,6 @@
 #include <algorithm>
 
-class __LARC : public Algorithm
+class __SRAC : public Algorithm
 {
 private://缓存基本信息
 
@@ -10,29 +10,32 @@ private://缓存基本信息
 
     double cr;
     int c;
+    int freq;
 
 public: //缓存基本操作
 
     //初始化
-    __LARC(cache_c *ctx)
+    __SRAC(cache_c *ctx)
     {
         cr =  ctx->block_num_conf * 0.1;
         c =  ctx->block_num_conf;
         ghost_lru = ghost_mru =NULL;
+        freq = 5;
     }
 
-    ~__LARC()
+    ~__SRAC()
     {
     }
 
     void map_operation(u_int64_t key, cache_c *ctx,char *map_key)
     {
         list_entry *cacheblk = ctx->cache_blk;
+        //cout << map_key << endl;
 
         unordered_map<string,struct list_entry *>::iterator got = cache_map.find(map_key);
         if(got == cache_map.end())
         {//未命中
-            cr = min(0.9*c,(cr+(c/cr)));
+            //cr = min(0.9*c,(cr+(c/cr)));
 
             unordered_map<string,struct list_entry *>::iterator got1 = ghost_map.find(map_key);
             
@@ -40,12 +43,22 @@ public: //缓存基本操作
             {//ghost未命中
                 struct list_entry *  le = (struct list_entry *)malloc(sizeof(struct list_entry));
                 strcpy(le->map_key,map_key);
+
                 add_ghost(le);
-                if(ghost_map.size() > cr)
+                if(ghost_map.size() > c)
                     rm_ghost_lru();
+
                 return;
             }
+            
             struct list_entry *  le = got1->second;
+
+            if(le->access_cnt < 5)
+            {
+                le->access_cnt++;
+                mv_to_ghost_mru(le);
+                return;
+            }
             rm_ghost(le);
 
             if(cache_map.size() == ctx->block_num_conf)
@@ -61,7 +74,7 @@ public: //缓存基本操作
                 ctx->lru = ctx->lru->pre;
                 ctx->lru->next = ctx->mru->pre = NULL;
                 ctx->mru->block_id = key;
-                ctx->mru->access_cnt = 1;
+                ctx->mru->access_cnt = freq+1;
                 ctx->mru->pre_access = ctx->stat->total_num;
                 strcpy(ctx->mru->map_key,map_key);
                 cache_map[map_key] = ctx->mru;
@@ -78,7 +91,7 @@ public: //缓存基本操作
                 {
                     le->next = le->pre = NULL;
                     le->block_id = key; 
-                    le->access_cnt = 1;
+                    le->access_cnt = freq+1;
                     le->pre_access = ctx->stat->total_num;
                     strcpy(le->map_key,map_key);
                     ctx->mru = ctx->lru = le;
@@ -89,7 +102,7 @@ public: //缓存基本操作
                     le->pre = NULL;
                     le->block_id = key; 
                     strcpy(le->map_key,map_key);
-                    le->access_cnt = 1;
+                    le->access_cnt = freq+1;
                     le->pre_access = ctx->stat->total_num;
 
                     le->next = ctx->mru;
@@ -104,7 +117,7 @@ public: //缓存基本操作
         }
         else
         {//命中
-            cr = max(0.1*c,(cr-(c/(c-cr))));
+            //cr = max(0.1*c,(cr-(c/(c-cr))));
             struct list_entry *  le = got->second;
             if(ctx->mru != le)
             {
@@ -132,8 +145,6 @@ public: //缓存基本操作
                 //写ssd
                 ctx->stat->write_ssd();
             }
-
-
             le = NULL;
         }
        
@@ -221,6 +232,31 @@ if(ghost_map.size() > cr)
             le->pre->next = NULL;
             ghost_lru = le->pre;
             free(le);
+        }
+    }
+
+    void mv_to_ghost_mru(struct list_entry *le)
+    {
+        if(le->pre == NULL)
+            return;
+        
+        if(le->next == NULL)
+        {
+            le->next = ghost_mru;
+            ghost_mru->pre = le;
+            le->pre = NULL;
+            ghost_mru = le;
+            return;
+        }
+        else
+        {
+            le->pre->next = le->next;
+            le->next->pre = le->pre;
+
+            le->next = ghost_mru;
+            ghost_mru->pre = le;
+            le->pre = NULL;
+            ghost_mru = le;
         }
     }
 };

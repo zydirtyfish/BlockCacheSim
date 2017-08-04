@@ -1,5 +1,5 @@
 #缓存替换算法的类型
-algorithm_type=0
+algorithm_type=5
 #缓存的大小
 block_num_conf=65536
 #块大小

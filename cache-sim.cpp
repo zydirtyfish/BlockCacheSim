@@ -2,7 +2,6 @@
 // cache-sim for block level cache test
 // Author: Zhang Yu
 // Date: 2017-08
-////
 
 #include "Config.h"
 #include "cache-sim.h"
@@ -16,6 +15,7 @@ int main(int argc, char *argv[])
 	cache_c *ctx;
 	char config_file[500];
 	//strcpy(config_file,"cache-sim_v1.0/config");
+
 	strcpy(config_file,argv[1]);
 
 	ctx = (struct cache_c *)malloc(sizeof(struct cache_c));
@@ -26,11 +26,17 @@ int main(int argc, char *argv[])
 	/*创建统计对象*/
 	ctx->stat = new Stat();
 
+	if(argc >= 3)
+		ctx->algorithm_type = atoi(argv[2]);
+	if(argc >= 4)
+		ctx->block_num_conf = strtoull(argv[3],NULL,10);
+	
 	RUN *run = new RUN(ctx);
 	run->exec(ctx);
 	run->show_result(ctx);
 	delete run;
 	destroy_cache(ctx);
+	system("pause");
 	return 0;
 }
 

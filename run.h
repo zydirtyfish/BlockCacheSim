@@ -5,6 +5,7 @@
 #include "arc.h"
 #include "larc.h"
 #include "opt.h"
+#include "srac.h"
 
 class RUN
 {
@@ -18,6 +19,7 @@ private:
 	__ARC *arc;
 	__LARC *larc;
 	__OPT *opt;
+	__SRAC *srac;
 
 public:
 	RUN(cache_c *ctx)
@@ -39,6 +41,10 @@ public:
 			case LARC:
 				strcpy(name,"LARC");
 				larc = new __LARC(ctx);
+				break;
+			case SRAC:
+				strcpy(name,"SRAC");
+				srac = new __SRAC(ctx);
 				break;
 			case OPT:
 				strcpy(name,"OPT");
@@ -83,7 +89,7 @@ public:
 		ctx->ti = gtt->get_ti(true);
 
 		while(ctx->ti != NULL)
-		{	
+		{
 			switch(ctx->algorithm_type)
 			{//缓存操作
 				case LRU:
@@ -97,6 +103,9 @@ public:
 					break;
 				case LARC:
 					larc->kernel(ctx);
+					break;
+				case SRAC:
+					srac->kernel(ctx);
 					break;
 				case OPT:
 					opt->kernel(ctx);
@@ -128,7 +137,6 @@ public:
 		while(*tmp != '\r' && *tmp != '\0')
 			tmp++;
 		*tmp = '\0';
-
 		return (dst);
 	}
 };

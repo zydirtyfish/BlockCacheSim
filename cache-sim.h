@@ -24,6 +24,7 @@ using namespace std;
 #define OPT 2
 #define ARC 3
 #define LARC 4
+#define SRAC 5
 
 
 #ifndef LIST_ENTRY__
