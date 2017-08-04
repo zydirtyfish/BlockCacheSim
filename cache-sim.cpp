@@ -36,7 +36,6 @@ int main(int argc, char *argv[])
 	run->show_result(ctx);
 	delete run;
 	destroy_cache(ctx);
-	system("pause");
 	return 0;
 }
 
