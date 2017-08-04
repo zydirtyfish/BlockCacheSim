@@ -2,7 +2,7 @@
 // cache-sim for block level cache test
 // Author: Zhang Yu
 // Date: 2017-08
-//
+////
 
 #include "Config.h"
 #include "cache-sim.h"
