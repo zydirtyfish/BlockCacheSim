@@ -1,5 +1,6 @@
 # cache-sim_v1.0
 
+### 下载与编译
 通过下列命令下载
 
 ```
@@ -18,8 +19,10 @@ make
 make run
 ```
 
+### trace下载
 demo程序中分析的是trace文件夹的下的example文件，更多的trace文件可在网站[SNIA网站](http://iotta.snia.org/tracetypes/3)上下载。
 
+### 配置文件
 缓存所有的配置信息在config文件中，配置文件属性与值之间以等号连接，注释以#开头
 ```
 #缓存替换算法的类型
