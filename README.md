@@ -61,3 +61,11 @@ destroy_cache()//销毁缓存
 main()函数通过调用Run对象的exec()方法运行缓存,exec()函数调用了Algorithm类中的kernel()方法。因此kernel()是整个cache-sim的核心方法。
 
 不同的缓存替换算法都继承了Algorithm这个算法父类，并且实现了父类中的虚函数map_operation()，kernel()函数通过调用不同的map_operation()实现不同的替换策略，这一点类似于flashcache的实现，flashcache实现的就是map_operation()所实现的功能，而kernel()则类似于device-mapper层提供的转发功能。
+
+### 关于我们
+张煜
+
+华中科技大学
+武汉光电国家实验室
+计算机系统结构
+2016级研究生
