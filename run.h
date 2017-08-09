@@ -133,16 +133,11 @@ public:
 		if(ctx->algorithm_type == ASTAT)
 		{//如果是数据统计
 			show_stat(ctx);
-			return;
 		}
-		//显示结果
-		cout << "\n--------------------------------------------------------------------------------" << endl;
-		cout << "cache_size: "<<ctx->block_num_conf<<"blocks"<<"\t"<<"write_policy: write through"<< endl;
-		cout << "--------------------------------------------------------------------------------" << endl;
-		cout << "name" <<"\t\t" << "read_ratio" <<"\t\t" << "hit_ratio" << "\t\t"<< "ssd_write"<<endl;
-		cout << "--------------------------------------------------------------------------------" << endl;
-		cout << ctx->cache_name << "\t\t" << ctx->stat->get_read_ratio() << "%" << "\t\t" << ctx->stat->get_hit_ratio() << "%\t\t" << ctx->stat->get_ssd_write() << endl;
-		cout << "--------------------------------------------------------------------------------" << endl;
+		else
+		{//否则统计命中率
+			show_hit(ctx);
+		}
 	}
 
 	char* my_strpro(char *dst)
@@ -154,18 +149,106 @@ public:
 		return (dst);
 	}
 
+	void show_hit(cache_c *ctx)
+	{
+		//显示结果
+		cout << "\n--------------------------------------------------------------------------------" << endl;
+		cout << "cache_size: "<<ctx->block_num_conf<<"blocks"<<"\t"<<"write_policy: write through"<< endl;
+		cout << "--------------------------------------------------------------------------------" << endl;
+		cout << "name" <<"\t\t" << "read_ratio" <<"\t\t" << "hit_ratio" << "\t\t"<< "ssd_write"<<endl;
+		cout << "--------------------------------------------------------------------------------" << endl;
+		cout << ctx->cache_name << "\t\t" << ctx->stat->get_read_ratio() << "%" << "\t\t" << ctx->stat->get_hit_ratio() << "%\t\t" << ctx->stat->get_ssd_write() << endl;
+		cout << "--------------------------------------------------------------------------------" << endl;
+
+		char name_tmp[500] = "";
+		strcpy(name_tmp,ctx->out_prefix);
+		my_strpro(name_tmp);
+
+		char split_tmp[50] = "";
+		strcpy(split_tmp,ctx->log_prefix);
+  		const char *sep = "/"; //可按多个字符来分割
+  		char *p;
+  		char p_tmp[50];
+		p = strtok(split_tmp, sep);
+		while(p){
+			p = strtok(NULL, sep);
+			if(p!=NULL)
+				strcpy(p_tmp,p);
+		}
+
+		strcat(name_tmp,p_tmp);
+		my_strpro(name_tmp);
+
+		FILE *fp = fopen(name_tmp,"a+");
+		fprintf(fp,"\n--------------------------------------------------------------------------------\n");
+		fprintf(fp,"cache_size: %llublocks\twrite_policy: write through\n",ctx->block_num_conf);
+		fprintf(fp,"--------------------------------------------------------------------------------\n");
+		fprintf(fp,"name\t\tread_ratio\t\thit_ratio\t\tssd_write\n");
+		fprintf(fp,"--------------------------------------------------------------------------------\n");
+		fprintf(fp,"%s\t\t%.2lf%\t\t%.2lf%\t\t%llu\n",ctx->cache_name,ctx->stat->get_read_ratio(),ctx->stat->get_hit_ratio(),ctx->stat->get_ssd_write());
+		fprintf(fp,"--------------------------------------------------------------------------------\n");
+		fclose(fp);
+	}
+
 	void show_stat(cache_c *ctx)
 	{	
-		char name_tmp[500] = "./";
-		strcat(name_tmp,ctx->log_prefix);
-		cout << name_tmp << endl;
+		char name_tmp[500] = "";
+		strcpy(name_tmp,ctx->out_prefix);
 		my_strpro(name_tmp);
-		cout << name_tmp << endl;
+
+		char split_tmp[50] = "";
+		strcpy(split_tmp,ctx->log_prefix);
+  		const char *sep = "/"; //可按多个字符来分割
+  		char *p;
+  		char p_tmp[50];
+		p = strtok(split_tmp, sep);
+		while(p){
+			p = strtok(NULL, sep);
+			if(p!=NULL)
+				strcpy(p_tmp,p);
+		}
+
+		strcat(name_tmp,p_tmp);
+		my_strpro(name_tmp);
+
 		FILE *fp = fopen(name_tmp,"a+");
 		astat->stat_end(ctx);/*最后处理结果*/
+
+		fprintf(fp,"<---------------------统计输出--------------------->\n");
+		fprintf(fp,"文件名:%s\n",ctx->log_prefix);
+		fprintf(fp,"throughput\t%.2lfGB\n",ctx->stat->throughput*4.0 / (1024*1024));
+		fprintf(fp,"unique data\t%.2lfGB\n",ctx->stat->uni_data*4.0 / (1024*1024));
+		fprintf(fp,"re-access data\t%.2lfGB\n",ctx->stat->re_access_data*4.0 / (1024*1024));
+		char unit[4][4]={"KB","MB","GB","TB"};
+		fprintf(fp,"----------reuse_dis_cdf----------\n");
+		for(int i = 0; i < 40 ;i++)
+        {
+            fprintf(fp,"%.0lf%s\t",pow(2,i%10),unit[i/10]);
+            if(ctx->stat->reuse_dis_cdf[i]==1)
+            	break;
+        }
+        fprintf(fp,"\n");
 		for(int i = 0; i < 40 ;i++)
         {
             fprintf(fp,"%.2lf\t",ctx->stat->reuse_dis_cdf[i]);
+            if(ctx->stat->reuse_dis_cdf[i]==1)
+            	break;
+        }
+        fprintf(fp,"\n");
+
+        fprintf(fp,"----------frequency_cdf----------\n");
+		for(int i = 0; i < 20 ;i++)
+        {
+            fprintf(fp,"%.0lf\t",pow(2,i));
+            if(ctx->stat->freq_cdf[i]==1)
+            	break;
+        }
+        fprintf(fp,"\n");
+		for(int i = 0; i < 20 ;i++)
+        {
+            fprintf(fp,"%.2lf\t",ctx->stat->freq_cdf[i]);
+            if(ctx->stat->freq_cdf[i]==1)
+            	break;
         }
         fprintf(fp,"\n");
         fclose(fp);

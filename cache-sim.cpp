@@ -67,6 +67,9 @@ void init_cache(struct cache_c *ctx,const char *config_file)
 	cf->Get(config_file,"log_prefix",tmp);
 	strcpy(ctx->log_prefix,tmp);
 
+	cf->Get(config_file,"out_prefix",tmp);
+	strcpy(ctx->out_prefix,tmp);
+
 	cf->Get(config_file,"PARA",tmp);
 	ctx->PARA=atoi(tmp);
 

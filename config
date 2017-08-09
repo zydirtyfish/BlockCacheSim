@@ -24,3 +24,6 @@ log_num=1
 
 #日志文件的前缀
 log_prefix=./trace/example.csv
+
+#输出文件前缀
+out_prefix=./stat/

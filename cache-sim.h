@@ -69,6 +69,7 @@ struct cache_c
 
     u_int64_t block_num_conf;/*缓存大小*/
     char log_prefix[500];/*日志文件的前缀*/
+    char out_prefix[500];/*输出文件的前缀*/
     FILE *outfile[10];/*输出文件*/
     char cache_name[10];
 };
