@@ -49,6 +49,12 @@ k=16
 ```
 ./cache-sim.o config
 ```
+
+### 统计trace的基本信息
+```
+./cache-sim.o config 100
+```
+
 ### 缓存的初始化
 
 ```
