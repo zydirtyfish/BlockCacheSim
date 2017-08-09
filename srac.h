@@ -8,8 +8,7 @@ private://缓存基本信息
     struct list_entry *ghost_lru; //ghost的cold端
     unordered_map<string,struct list_entry *> ghost_map; //ghost索引
 
-    double cr;
-    int c;
+    u_int64_t ghost_size;
     int freq;
 
 public: //缓存基本操作
@@ -17,8 +16,7 @@ public: //缓存基本操作
     //初始化
     __SRAC(cache_c *ctx)
     {
-        cr =  ctx->block_num_conf * 0.1;
-        c =  ctx->block_num_conf;
+        ghost_size =  ctx->block_num_conf;
         ghost_lru = ghost_mru =NULL;
         freq = 5;
     }
@@ -31,11 +29,10 @@ public: //缓存基本操作
     {
         list_entry *cacheblk = ctx->cache_blk;
         //cout << map_key << endl;
-
+        //cout << cacheblk << " " << ghost_mru << endl;
         unordered_map<string,struct list_entry *>::iterator got = cache_map.find(map_key);
         if(got == cache_map.end())
         {//未命中
-            //cr = min(0.9*c,(cr+(c/cr)));
 
             unordered_map<string,struct list_entry *>::iterator got1 = ghost_map.find(map_key);
             
@@ -45,7 +42,7 @@ public: //缓存基本操作
                 strcpy(le->map_key,map_key);
 
                 add_ghost(le);
-                if(ghost_map.size() > c)
+                if(ghost_map.size() > ghost_size)
                     rm_ghost_lru();
 
                 return;
@@ -117,7 +114,6 @@ public: //缓存基本操作
         }
         else
         {//命中
-            //cr = max(0.1*c,(cr-(c/(c-cr))));
             struct list_entry *  le = got->second;
             if(ctx->mru != le)
             {
@@ -150,7 +146,6 @@ public: //缓存基本操作
        
 //lru链表测试
 #if DEBUG
-
 struct list_entry *le1 = ghost_mru;
 cout << "ghost_list"<< "\t" << ghost_map.size() << "\t";
 while(le1 != NULL){
@@ -165,12 +160,7 @@ while(le1 != NULL){
     le1 = le1->next;
 }
 cout << endl << endl;
-
-add_ghost(le);
-if(ghost_map.size() > cr)
-    rm_ghost_lru();
 #endif
-
     }
 
     void add_ghost(struct list_entry *le)
@@ -242,6 +232,8 @@ if(ghost_map.size() > cr)
         
         if(le->next == NULL)
         {
+        	ghost_lru = le->pre;
+        	le->pre->next = NULL;
             le->next = ghost_mru;
             ghost_mru->pre = le;
             le->pre = NULL;
