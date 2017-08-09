@@ -66,8 +66,6 @@ main()函数通过调用Run对象的exec()方法运行缓存,exec()函数调用�
 
 ![image](http://onx1obrfu.bkt.clouddn.com/joystorage/blogs/缓存模拟器-cache-sim1.jpg)
 
-### 高级选项
-cache-sim实现了很多高级统计项，暂不开放！
 
 ### 关于我们
 张煜
