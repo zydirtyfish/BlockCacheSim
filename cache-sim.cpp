@@ -20,16 +20,17 @@ int main(int argc, char *argv[])
 
 	ctx = (struct cache_c *)malloc(sizeof(struct cache_c));
 	init_cache(ctx,config_file);
+	
+	if(argc >= 3)
+		ctx->algorithm_type = atoi(argv[2]);
+	if(argc >= 4)
+		ctx->block_num_conf = strtoull(argv[3],NULL,10);
+	
 	/*开辟缓存空间*/
 	if(ctx->algorithm_type != ARC)
 		ctx->cache_blk = (struct list_entry*)malloc(sizeof(struct list_entry)*ctx->block_num_conf);
 	/*创建统计对象*/
 	ctx->stat = new Stat();
-
-	if(argc >= 3)
-		ctx->algorithm_type = atoi(argv[2]);
-	if(argc >= 4)
-		ctx->block_num_conf = strtoull(argv[3],NULL,10);
 	
 	RUN *run = new RUN(ctx);
 	run->exec(ctx);
