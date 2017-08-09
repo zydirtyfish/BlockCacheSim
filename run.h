@@ -1,5 +1,6 @@
 #include "get_trace_tool.h"
 #include "algorithm.h"
+#include "adv_stat.h"
 #include "lru.h"
 #include "fifo.h"
 #include "arc.h"
@@ -14,6 +15,7 @@ private:
 	get_trace_tool *gtt;
 	char name[10];
 
+	__Astat *astat;
 	__LRU *lru;
 	__FIFO *fifo;
 	__ARC *arc;
@@ -45,6 +47,10 @@ public:
 			case SRAC:
 				strcpy(name,"SRAC");
 				srac = new __SRAC(ctx);
+				break;
+			case ASTAT:
+				strcpy(name,"STAT");
+				astat = new __Astat();
 				break;
 			case OPT:
 				strcpy(name,"OPT");
@@ -110,6 +116,9 @@ public:
 				case OPT:
 					opt->kernel(ctx);
 					break;
+				case ASTAT:
+					astat->kernel(ctx);
+					break;
 			}
 
 			ctx->ti = gtt->get_ti(true);
@@ -121,6 +130,11 @@ public:
 
 	void show_result(cache_c *ctx)
 	{
+		if(ctx->algorithm_type == ASTAT)
+		{//如果是数据统计
+			show_stat(ctx);
+			return;
+		}
 		//显示结果
 		cout << "\n--------------------------------------------------------------------------------" << endl;
 		cout << "cache_size: "<<ctx->block_num_conf<<"blocks"<<"\t"<<"write_policy: write through"<< endl;
@@ -138,5 +152,22 @@ public:
 			tmp++;
 		*tmp = '\0';
 		return (dst);
+	}
+
+	void show_stat(cache_c *ctx)
+	{	
+		char name_tmp[500] = "./";
+		strcat(name_tmp,ctx->log_prefix);
+		cout << name_tmp << endl;
+		my_strpro(name_tmp);
+		cout << name_tmp << endl;
+		FILE *fp = fopen(name_tmp,"a+");
+		astat->stat_end(ctx);/*最后处理结果*/
+		for(int i = 0; i < 40 ;i++)
+        {
+            fprintf(fp,"%.2lf\t",ctx->stat->reuse_dis_cdf[i]);
+        }
+        fprintf(fp,"\n");
+        fclose(fp);
 	}
 };

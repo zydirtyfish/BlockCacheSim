@@ -14,8 +14,10 @@ public:
     u_int64_t throughput;/*流量统计*/
     u_int64_t uni_data;/*唯一数据量*/
     u_int64_t re_access_data;/*再次访问的数据*/
-    u_int64_t ferq[20];/*频次分布*/
-    u_int64_t reuse_dis[20];/*重用距离分布*/
+    u_int64_t freq[20];/*频次分布*/
+    double freq_cdf[20];/*累计分布*/
+    u_int64_t reuse_dis[40];/*重用距离分布*/
+    double reuse_dis_cdf[40];/*累计分布*/
 
     double latency;
 
@@ -23,6 +25,15 @@ public:
     Stat()
     {
         latency = total_num = hit_num = read_num =ssd_write = 0;
+        throughput = uni_data = re_access_data = 0;
+        for(int i = 0; i< 20 ; i++)
+        {
+        	freq[i] = freq_cdf[i] = reuse_dis[i] = reuse_dis_cdf[i] = 0;
+        }
+        for(int i= 20 ;i < 40;i++)
+        {
+			reuse_dis_cdf[i] = reuse_dis[i] = 0;
+        }
     }
 
     ~Stat()
