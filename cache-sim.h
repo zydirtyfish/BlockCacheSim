@@ -67,8 +67,8 @@ struct cache_c
     struct list_entry *lru; /*lru端*/
     struct list_entry *mru; /*mru端*/
 
-    int PARA;
-    int K;
+    double PARA;
+    double K;
 
     u_int64_t block_num_conf;/*缓存大小*/
     char log_prefix[500];/*日志文件的前缀*/

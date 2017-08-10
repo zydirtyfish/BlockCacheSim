@@ -25,6 +25,10 @@ int main(int argc, char *argv[])
 		ctx->algorithm_type = atoi(argv[2]);
 	if(argc >= 4)
 		ctx->block_num_conf = strtoull(argv[3],NULL,10);
+	if(argc >= 5)
+		ctx->PARA = atof(argv[4]);
+	if(argc >= 6)
+		ctx->K = atof(argv[5]);
 	
 	/*开辟缓存空间*/
 	if(ctx->algorithm_type != ARC)
@@ -71,10 +75,10 @@ void init_cache(struct cache_c *ctx,const char *config_file)
 	strcpy(ctx->out_prefix,tmp);
 
 	cf->Get(config_file,"PARA",tmp);
-	ctx->PARA=atoi(tmp);
+	ctx->PARA=atof(tmp);
 
 	cf->Get(config_file,"K",tmp);
-	ctx->K=atoi(tmp);
+	ctx->K=atof(tmp);
 
 	ctx->lru = ctx->mru = NULL;
 	delete cf;

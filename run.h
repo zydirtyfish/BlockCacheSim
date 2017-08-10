@@ -188,15 +188,32 @@ public:
 		strcat(name_tmp,p_tmp);
 		my_strpro(name_tmp);
 
-		FILE *fp = fopen(name_tmp,"a+");
-		fprintf(fp,"\n--------------------------------------------------------------------------------\n");
-		fprintf(fp,"cache_size: %llublocks\twrite_policy: write through\n",ctx->block_num_conf);
-		fprintf(fp,"--------------------------------------------------------------------------------\n");
-		fprintf(fp,"name\t\thit_ratio\t\tssd_write\n");
-		fprintf(fp,"--------------------------------------------------------------------------------\n");
-		fprintf(fp,"%s\t\t%.2lf%\t\t%llu\n",ctx->cache_name,ctx->stat->get_hit_ratio(),ctx->stat->get_ssd_write());
-		fprintf(fp,"--------------------------------------------------------------------------------\n");
-		fclose(fp);
+
+		if(ctx->ctx->algorithm_type == LEA)
+		{
+			FILE *fp = fopen(name_tmp,"a+");
+			fprintf(fp,"\n--------------------------------------------------------------------------------\n");
+			fprintf(fp,"cache_size: %llublocks\twrite_policy: write through\n",ctx->block_num_conf);
+			fprintf(fp,"PARA: %d\twrite_policy: write through\n",ctx->PARA);
+			fprintf(fp,"--------------------------------------------------------------------------------\n");
+			fprintf(fp,"name\t\thit_ratio\t\tssd_write\n");
+			fprintf(fp,"--------------------------------------------------------------------------------\n");
+			fprintf(fp,"%s\t\t%.2lf%\t\t%llu\n",ctx->cache_name,ctx->stat->get_hit_ratio(),ctx->stat->get_ssd_write());
+			fprintf(fp,"--------------------------------------------------------------------------------\n");
+			fclose(fp);
+		}
+		else
+		{
+			FILE *fp = fopen(name_tmp,"a+");
+			fprintf(fp,"\n--------------------------------------------------------------------------------\n");
+			fprintf(fp,"cache_size: %llublocks\twrite_policy: write through\n",ctx->block_num_conf);
+			fprintf(fp,"--------------------------------------------------------------------------------\n");
+			fprintf(fp,"name\t\thit_ratio\t\tssd_write\n");
+			fprintf(fp,"--------------------------------------------------------------------------------\n");
+			fprintf(fp,"%s\t\t%.2lf%\t\t%llu\n",ctx->cache_name,ctx->stat->get_hit_ratio(),ctx->stat->get_ssd_write());
+			fprintf(fp,"--------------------------------------------------------------------------------\n");
+			fclose(fp);
+		}
 	}
 
 	void show_stat(cache_c *ctx)

@@ -105,7 +105,7 @@ public: //缓存基本操作
 		int result = -1;
         if(cache_entry[current_index].access_cnt == 1)
         {
-            if(ctx->stat->total_num - cache_entry[current_index].pre_access > ctx->PARA)
+            if(ctx->stat->total_num - cache_entry[current_index].pre_access > ctx->PARA * ctx->block_num_conf)
             {
                 result = current_index;
             }
