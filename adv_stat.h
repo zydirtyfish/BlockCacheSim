@@ -74,14 +74,14 @@ public: //缓存基本操作
             ctx->stat->freq[index_tmp]++;
         }
 
-        /*构建累计分布*/
+        /*构建频次累计分布*/
         double sum_tmp = 0;
-        for(int i = 0; i < 20 ;i++)
+        for(int i = 0; i < 40 ;i++)
         {
             sum_tmp += ctx->stat->freq[i];
             ctx->stat->freq_cdf[i] = sum_tmp;
         }
-        for(int i = 0; i < 20 ;i++)
+        for(int i = 0; i < 40 ;i++)
         {
             ctx->stat->freq_cdf[i] = ctx->stat->freq_cdf[i] *1.0 / sum_tmp;
         }

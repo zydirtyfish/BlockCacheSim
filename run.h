@@ -194,7 +194,7 @@ public:
 			FILE *fp = fopen(name_tmp,"a+");
 			fprintf(fp,"\n--------------------------------------------------------------------------------\n");
 			fprintf(fp,"cache_size: %llublocks\twrite_policy: write through\n",ctx->block_num_conf);
-			fprintf(fp,"PARA: %d\twrite_policy: write through\n",ctx->PARA);
+			fprintf(fp,"[Lazy Parameters]\tPARA:%.2lf\tK:%.2lf\n",ctx->PARA,ctx->K);
 			fprintf(fp,"--------------------------------------------------------------------------------\n");
 			fprintf(fp,"name\t\thit_ratio\t\tssd_write\n");
 			fprintf(fp,"--------------------------------------------------------------------------------\n");
@@ -264,14 +264,14 @@ public:
         fprintf(fp,"\n");
 
         fprintf(fp,"----------frequency_cdf----------\n");
-		for(int i = 0; i < 20 ;i++)
+		for(int i = 0; i < 40 ;i++)
         {
             fprintf(fp,"%.0lf\t",pow(2,i));
             if(ctx->stat->freq_cdf[i]==1)
             	break;
         }
         fprintf(fp,"\n");
-		for(int i = 0; i < 20 ;i++)
+		for(int i = 0; i < 40 ;i++)
         {
             fprintf(fp,"%.2lf\t",ctx->stat->freq_cdf[i]);
             if(ctx->stat->freq_cdf[i]==1)
