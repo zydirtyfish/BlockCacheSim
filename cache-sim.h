@@ -30,6 +30,14 @@ using namespace std;
 #define ASTAT 100
 #define LEA 101
 
+#if defined(_WIN32) || defined(__WINDOWS_)
+#ifndef UINT__
+#define UINT__
+typedef unsigned short u_int16_t;
+typedef unsigned int u_int32_t;
+typedef unsigned long long u_int64_t;
+#endif
+#endif
 
 #ifndef LIST_ENTRY__
 #define LIST_ENTRY__

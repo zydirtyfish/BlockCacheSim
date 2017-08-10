@@ -189,7 +189,7 @@ public:
 		my_strpro(name_tmp);
 
 
-		if(ctx->ctx->algorithm_type == LEA)
+		if(ctx->algorithm_type == LEA)
 		{
 			FILE *fp = fopen(name_tmp,"a+");
 			fprintf(fp,"\n--------------------------------------------------------------------------------\n");
