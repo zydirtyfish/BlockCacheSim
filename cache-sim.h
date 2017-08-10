@@ -19,13 +19,16 @@ using namespace std;
 #define DEBUG 0
 
 //---缓存算法配置区---
-#define ASTAT 100
 #define FIFO 0
 #define LRU 1
 #define OPT 2
 #define ARC 3
 #define LARC 4
 #define SRAC 5
+
+//---高端缓存算法配置区---
+#define ASTAT 100
+#define LEA 101
 
 
 #ifndef LIST_ENTRY__

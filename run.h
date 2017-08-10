@@ -7,6 +7,7 @@
 #include "larc.h"
 #include "opt.h"
 #include "srac.h"
+#include "lea.h"
 
 class RUN
 {
@@ -22,6 +23,7 @@ private:
 	__LARC *larc;
 	__OPT *opt;
 	__SRAC *srac;
+	__LEA *lea;
 
 public:
 	RUN(cache_c *ctx)
@@ -51,6 +53,10 @@ public:
 			case ASTAT:
 				strcpy(name,"STAT");
 				astat = new __Astat();
+				break;
+			case LEA:
+				strcpy(name,"LEA");
+				lea = new __LEA();
 				break;
 			case OPT:
 				strcpy(name,"OPT");
@@ -118,6 +124,9 @@ public:
 					break;
 				case ASTAT:
 					astat->kernel(ctx);
+					break;
+				case LEA:
+					lea->kernel(ctx);
 					break;
 			}
 
