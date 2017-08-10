@@ -183,9 +183,9 @@ public:
 		fprintf(fp,"\n--------------------------------------------------------------------------------\n");
 		fprintf(fp,"cache_size: %llublocks\twrite_policy: write through\n",ctx->block_num_conf);
 		fprintf(fp,"--------------------------------------------------------------------------------\n");
-		fprintf(fp,"name\t\tread_ratio\t\thit_ratio\t\tssd_write\n");
+		fprintf(fp,"name\t\thit_ratio\t\tssd_write\n");
 		fprintf(fp,"--------------------------------------------------------------------------------\n");
-		fprintf(fp,"%s\t\t%.2lf%\t\t%.2lf%\t\t%llu\n",ctx->cache_name,ctx->stat->get_read_ratio(),ctx->stat->get_hit_ratio(),ctx->stat->get_ssd_write());
+		fprintf(fp,"%s\t\t%.2lf%\t\t%llu\n",ctx->cache_name,ctx->stat->get_hit_ratio(),ctx->stat->get_ssd_write());
 		fprintf(fp,"--------------------------------------------------------------------------------\n");
 		fclose(fp);
 	}
@@ -219,6 +219,7 @@ public:
 		fprintf(fp,"throughput\t%.2lfGB\n",ctx->stat->throughput*4.0 / (1024*1024));
 		fprintf(fp,"unique data\t%.2lfGB\n",ctx->stat->uni_data*4.0 / (1024*1024));
 		fprintf(fp,"re-access data\t%.2lfGB\n",ctx->stat->re_access_data*4.0 / (1024*1024));
+		fprintf(fp,"read ratio\t%.2lf%\n",ctx->stat->get_read_ratio());
 		char unit[4][4]={"KB","MB","GB","TB"};
 		fprintf(fp,"----------reuse_dis_cdf----------\n");
 		for(int i = 0; i < 40 ;i++)
