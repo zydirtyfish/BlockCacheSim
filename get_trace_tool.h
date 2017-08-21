@@ -2,6 +2,7 @@
 
 struct trace_inf {
 	int disknum;
+    int app;
 	u_int32_t size;
 	u_int32_t responsetime;
 	u_int64_t timestamp;
@@ -53,26 +54,61 @@ public:
     }
 
     //get next trace_inf
-    struct trace_inf *get_ti(bool output)
+    struct trace_inf *get_ti(bool output,struct cache_c *ctx)
     {
         if(!feof(fp))
         {
-            curr_rec++;
-            fscanf(fp, "%llu,%[^,],%d,%[^,],%llu,%lu,%lu\n", &ti->timestamp, &ti->hostname, &ti->disknum, &ti->io_type, &ti->offset, &ti->size, &ti->responsetime);
-            //cout << ti->timestamp << " " << ti->hostname << " " << ti->disknum << " " << ti->io_type << " " <<ti->offset << " " <<ti->size << " "<<ti->responsetime << endl;
-            if(strcmp(ti->io_type,"Write")==0)
-                ti->type = 1;
-            else
-                ti->type = 0;
-            if(output)
+            switch(ctx->trace_type)
             {
-                get_progress_ratio();
+                 case MSR:
+                    get_ti_type_MSR(output);
+                    break;
+                 case UMASS:
+                    get_ti_type_UMASS(output,ctx->block_size_conf);
+                    break;
             }
             return ti;
         }
         else
         {
             return NULL;
+        }
+    }
+
+    void get_ti_type_MSR(bool output)
+    {
+        curr_rec++;
+        fscanf(fp, "%llu,%[^,],%d,%[^,],%llu,%lu,%lu\n", &ti->timestamp, &ti->hostname, &ti->disknum, &ti->io_type, &ti->offset, &ti->size, &ti->responsetime);
+        //cout << ti->timestamp << " " << ti->hostname << " " << ti->disknum << " " << ti->io_type << " " <<ti->offset << " " <<ti->size << " "<<ti->responsetime << endl;
+        if(strcmp(ti->io_type,"Write")==0)
+            ti->type = 1;
+        else
+            ti->type = 0;
+        if(output)
+        {
+            get_progress_ratio();
+        }
+    }
+
+    void get_ti_type_UMASS(bool output,int block_size)
+    {
+        double time_st;
+        curr_rec++;
+        fscanf(fp, "%d,%llu,%lu,%[^,],%lf\n", &ti->app, &ti->offset, &ti->size, &ti->io_type,&time_st);
+        ti->disknum = 0;
+        ti->responsetime = 0;
+        ti->timestamp = 0;
+        strcpy(ti->hostname,"0");
+        if(strcmp(ti->io_type,"W")==0)
+            ti->type = 1;
+        else
+            ti->type = 0;
+
+        //cout << ti->timestamp << " " << ti->hostname << " " << ti->disknum << " " << ti->io_type << " " <<ti->offset << " " <<ti->size << " "<<ti->responsetime << endl;
+        ti->offset *= block_size;
+        if(output)
+        {
+            get_progress_ratio();
         }
     }
 
