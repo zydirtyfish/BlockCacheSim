@@ -50,6 +50,9 @@ void init_cache(struct cache_c *ctx,const char *config_file)
 	Config *cf = new Config();
 	char tmp[LINE_LENGTH];
 
+	cf->Get(config_file,"trace_type",tmp);
+	ctx->trace_type=atoi(tmp);
+
 	cf->Get(config_file,"algorithm_type",tmp);
 	ctx->algorithm_type = atoi(tmp);
 

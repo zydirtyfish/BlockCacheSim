@@ -30,6 +30,10 @@ using namespace std;
 #define ASTAT 100
 #define LEA 101
 
+//trace 类型配置区
+#define MSR 1
+#define UMASS 2
+
 #if defined(_WIN32) || defined(__WINDOWS_)
 #ifndef UINT__
 #define UINT__
@@ -69,6 +73,7 @@ struct cache_c
     int write_algorithm_conf; /*写策略*/
     int log_start;
     int log_num;
+    int trace_type;
     Stat *stat; /*统计信息*/
     struct trace_inf *ti; /*当前的IO任务ti*/
     struct list_entry *cache_blk; /*缓存空间*/

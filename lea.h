@@ -110,9 +110,12 @@ public: //缓存基本操作
                 result = current_index;
             }
         }
-        else if(ctx->stat->total_num - cache_entry[current_index].pre_access > ctx->K*cache_entry[current_index].avg_pre)
+        else 
         {
-            result = current_index;
+            double tmp_k;
+            tmp_k = 1 + (ctx->K-1)*1.0*log(2) / log(cache_entry[current_index].avg_pre);
+            if(ctx->stat->total_num - cache_entry[current_index].pre_access > tmp_k*cache_entry[current_index].avg_pre)
+                result = current_index;
         }
 
         current_index = (current_index+1) % ctx->block_num_conf;

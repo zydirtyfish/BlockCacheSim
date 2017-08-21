@@ -70,12 +70,12 @@ public:
 				
 				cout << "processing file named : " << FN << endl;
 				get_trace_tool *gtt_opt = new get_trace_tool(FN);
-				ctx->ti = gtt_opt->get_ti(true);
+				ctx->ti = gtt_opt->get_ti(true,ctx);
 				while(ctx->ti != NULL)
 				{
 					mapsize = opt->init_io_list(ctx);
 					//读取下一行trace文件
-					ctx->ti = gtt_opt->get_ti(true);
+					ctx->ti = gtt_opt->get_ti(true,ctx);
 				}
 				delete gtt_opt;
 				cout << endl;
@@ -98,7 +98,7 @@ public:
 		my_strpro(FN);
 		cout << "processing file named : " << FN <<endl;
 		gtt = new get_trace_tool(FN);
-		ctx->ti = gtt->get_ti(true);
+		ctx->ti = gtt->get_ti(true,ctx);
 
 		while(ctx->ti != NULL)
 		{
@@ -130,7 +130,7 @@ public:
 					break;
 			}
 
-			ctx->ti = gtt->get_ti(true);
+			ctx->ti = gtt->get_ti(true,ctx);
 		}
 		delete gtt;
 		cout << endl;

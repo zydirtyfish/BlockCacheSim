@@ -1,3 +1,6 @@
+#trace格式类型
+trace_type=1
+
 #缓存替换算法的类型
 #FIFO 0
 #LRU 1
