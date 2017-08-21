@@ -1,7 +1,7 @@
 #trace格式类型
 #define MSR 1 http://iotta.snia.org/tracetypes/3
 #define UMASS 2 http://traces.cs.umass.edu/index.php/Storage/Storage
-trace_type=2
+trace_type=1
 
 #缓存替换算法的类型
 #FIFO 0
@@ -28,7 +28,7 @@ log_start=0
 log_num=1
 
 #日志文件的前缀
-log_prefix=./trace/UMASS.csv
+log_prefix=./trace/example.csv
 
 #输出文件前缀
 out_prefix=./stat/
