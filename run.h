@@ -8,6 +8,7 @@
 #include "opt.h"
 #include "srac.h"
 #include "lea.h"
+#include "mru.h"
 
 class RUN
 {
@@ -24,6 +25,7 @@ private:
 	__OPT *opt;
 	__SRAC *srac;
 	__LEA *lea;
+	__MRU *mru;
 
 public:
 	RUN(cache_c *ctx)
@@ -57,6 +59,10 @@ public:
 			case LEA:
 				strcpy(name,"LEA");
 				lea = new __LEA();
+				break;
+			case MRU:
+				strcpy(name,"MRU");
+				mru = new __MRU();
 				break;
 			case OPT:
 				strcpy(name,"OPT");
@@ -127,6 +133,9 @@ public:
 					break;
 				case LEA:
 					lea->kernel(ctx);
+					break;
+				case MRU:
+					mru->kernel(ctx);
 					break;
 			}
 

@@ -25,6 +25,7 @@ using namespace std;
 #define ARC 3
 #define LARC 4
 #define SRAC 5
+#define MRU 6
 
 //---高端缓存算法配置区---
 #define ASTAT 100
