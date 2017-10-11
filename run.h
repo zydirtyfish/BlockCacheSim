@@ -9,6 +9,7 @@
 #include "srac.h"
 #include "lea.h"
 #include "mru.h"
+#include "lirs.h"
 
 class RUN
 {
@@ -26,6 +27,7 @@ private:
 	__SRAC *srac;
 	__LEA *lea;
 	__MRU *mru;
+	__LIRS *lirs;
 
 public:
 	RUN(cache_c *ctx)
@@ -63,6 +65,10 @@ public:
 			case MRU:
 				strcpy(name,"MRU");
 				mru = new __MRU();
+				break;
+			case LIRS:
+				strcpy(name,"LIRS");
+				lirs = new __LIRS();
 				break;
 			case OPT:
 				strcpy(name,"OPT");
@@ -136,6 +142,9 @@ public:
 					break;
 				case MRU:
 					mru->kernel(ctx);
+					break;
+				case LIRS:
+					lirs->kernel(ctx);
 					break;
 			}
 
