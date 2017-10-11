@@ -70,8 +70,14 @@ main()函数通过调用Run对象的exec()方法运行缓存,exec()函数调用�
 
 ### 结果显示
 ![image](http://onx1obrfu.bkt.clouddn.com/joystorage/blogs/缓存模拟器-cache-sim1.jpg)
+
 ### 输出样例
 ![image](http://onx1obrfu.bkt.clouddn.com/joystorage/blogs/缓存模拟器-cache-sim2.jpg)
+
+### 增加算法
+- 先照着lru.h的模板新建一个替换算法的头文件x.h,然后修改算法中map_operation()函数的逻辑
+- 修改完x.h头文件后，在cache-sim.h头文件中缓存算法配置区的位置添加一行x替换算法的定义 #define X n。其中X为算法的名称，n为正整数，但不能与之前的定义整数重复。
+- 最后修改run.h头文件，首先需要引入头文件#include "x.h"。然后在Run类的私有成员变量中添加一个X的对象__X * x，然后修改RUN()函数的初始化算法类部分代码。最后修改exec()函数缓存操作部分代码。
 
 ### 关于我们
 张煜
