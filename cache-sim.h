@@ -62,9 +62,10 @@ struct list_entry
 
     u_int64_t block_id;//逻辑块号
     u_int64_t avg_pre; //平均重用距离
-    enum LIRS_TYPE lirs_type; //lirs中的类型
     struct list_entry *next;
     struct list_entry *pre;
+    enum LIRS_TYPE lirs_type; //lirs中的类型
+    struct list_entry *hir_entry;//用于lirs
     int io_type;
     int io_size; // 原请求大小
     int dirty; //是否为脏数据
