@@ -10,10 +10,12 @@ trace_type=1
 #ARC 3
 #LARC 4
 #SRAC 5
-algorithm_type=5
+#define MRU 6
+#define LIRS 7
+algorithm_type=7
 
 #缓存的大小
-block_num_conf=65536
+block_num_conf=512
 
 #块大小
 block_size_conf=4096
@@ -32,6 +34,10 @@ log_prefix=./trace/example.csv
 
 #输出文件前缀
 out_prefix=./stat/
+
+#lirs算法配置
+hir_num_conf=0.01
+stack_size_conf=1.5
 
 #懒惰参数
 PARA=4

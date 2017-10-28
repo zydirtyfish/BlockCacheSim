@@ -45,6 +45,11 @@ typedef unsigned long long u_int64_t;
 #endif
 #endif
 
+#ifndef LIRS_TYPE__
+#define LIRS_TYPE__
+enum LIRS_TYPE{LIR=1,HIR,NHIR};
+#endif
+
 #ifndef LIST_ENTRY__
 #define LIST_ENTRY__
 struct list_entry
@@ -57,6 +62,7 @@ struct list_entry
 
     u_int64_t block_id;//逻辑块号
     u_int64_t avg_pre; //平均重用距离
+    enum LIRS_TYPE lirs_type; //lirs中的类型
     struct list_entry *next;
     struct list_entry *pre;
     int io_type;
@@ -84,6 +90,8 @@ struct cache_c
 
     double PARA;
     double K;
+    double hir_num_conf;
+    double stack_size_conf;
 
     u_int64_t block_num_conf;/*缓存大小*/
     char log_prefix[500];/*日志文件的前缀*/

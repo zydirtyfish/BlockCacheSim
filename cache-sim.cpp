@@ -22,7 +22,7 @@ int main(int argc, char *argv[])
 	init_cache(ctx,config_file);
 	
 	if(argc >= 3)
-		ctx->algorithm_type = atoi(argv[2]);
+		ctx->algorithm_type = atoi(argv[2]); 
 	if(argc >= 4)
 		ctx->block_num_conf = strtoull(argv[3],NULL,10);
 	if(argc >= 5)
@@ -31,7 +31,7 @@ int main(int argc, char *argv[])
 		ctx->K = atof(argv[5]);
 	
 	/*开辟缓存空间*/
-	if(ctx->algorithm_type != ARC)
+	if(ctx->algorithm_type != ARC && ctx->algorithm_type != LIRS)
 		ctx->cache_blk = (struct list_entry*)malloc(sizeof(struct list_entry)*ctx->block_num_conf);
 	/*创建统计对象*/
 	ctx->stat = new Stat();
@@ -83,6 +83,12 @@ void init_cache(struct cache_c *ctx,const char *config_file)
 	cf->Get(config_file,"K",tmp);
 	ctx->K=atof(tmp);
 
+	cf->Get(config_file,"hir_num_conf",tmp);
+	ctx->hir_num_conf=atof(tmp);
+
+	cf->Get(config_file,"stack_size_conf",tmp);
+	ctx->stack_size_conf=atof(tmp);
+
 	ctx->lru = ctx->mru = NULL;
 	delete cf;
 
@@ -91,7 +97,7 @@ void init_cache(struct cache_c *ctx,const char *config_file)
 void destroy_cache(struct cache_c *ctx)
 {	
 	delete ctx->stat;
-	if(ctx->algorithm_type != ARC)
+	if(ctx->algorithm_type != ARC && ctx->algorithm_type != LIRS)
 		free(ctx->cache_blk);
 	free(ctx);
 }
