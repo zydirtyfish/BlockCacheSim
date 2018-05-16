@@ -60,8 +60,8 @@ destroy_cache()//销毁缓存
 
 * 不同的缓存替换算法都继承了Algorithm这个算法父类，并且实现了父类中的虚函数map_operation()，kernel()函数通过调用不同的map_operation()实现不同的替换策略，这一点类似于flashcache的实现，flashcache实现的就是map_operation()所实现的功能，而kernel()则类似于device-mapper层提供的转发功能。
 
-### 结果显示
-![image](http://onx1obrfu.bkt.clouddn.com/joystorage/blogs/缓存模拟器-cache-sim1.jpg)
+<!--### 结果显示
+![image](http://onx1obrfu.bkt.clouddn.com/joystorage/blogs/缓存模拟器-cache-sim1.jpg)-->
 
 ### Sample output
 ![image](http://onx1obrfu.bkt.clouddn.com/joystorage/blogs/缓存模拟器-cache-sim2.jpg)
@@ -79,4 +79,5 @@ Yu Zhang
 
 ### Statement
 Non-commercial reprint please indicate the author and source. Commercial reprint please contact the author himself.
+
 非商业转载请注明作者及出处。商业转载请联系作者本人。
