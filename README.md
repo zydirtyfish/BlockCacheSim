@@ -55,6 +55,7 @@ The program entry is in the main function of ```cache-sim.cpp```. It can be foun
 ![image](http://onx1obrfu.bkt.clouddn.com/joystorage/blogs/缓存模拟器-cache-sim1.jpg)-->
 
 ### Sample output
+```
 <---------------------Statistical Reuslts--------------------->
 File Name:./trace/example.csv
 throughput	14.00GB
@@ -91,7 +92,7 @@ name		hit_ratio		ssd_write
 --------------------------------------------------------------------------------
 ARC		32.85		3080631
 --------------------------------------------------------------------------------
-
+```
 <!--![image](http://onx1obrfu.bkt.clouddn.com/joystorage/blogs/缓存模拟器-cache-sim2.jpg)-->
 
 ### To add algorithms
