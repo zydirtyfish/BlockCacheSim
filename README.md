@@ -2,14 +2,14 @@
 
 ### Download & Compile
 
-* Download via the following command
+* Download via the following command.
 ```
 git clone https://github.com/zydirtyfish/BlockCacheSim.git
 ```
 
-* Enter the BlockCacheSim directory, and use command ```make``` to compile
+* Enter the BlockCacheSim directory, and use command ```make``` to compile.
 
-* Use command ```make run``` to execute the sample program
+* Use command ```make run``` to execute the sample program.
 
 ### To download the trace file
 
@@ -36,28 +36,29 @@ PARA=4
 k=16
 ```
 
-程序入口在cache-sim.cpp中的main函数，可以发现，配置文件通过命令行参数传入，即通过下列命令运行
+The program entry is in the main function of ```cache-sim.cpp```. It can be found that the configuration file is passed in through the command line parameters. That is we should using the following command to execute the program.
 ```
 ./cache-sim.o config
 ```
 
-### 统计trace的基本信息
+### To statistic the basic information of traces
 ```
 ./cache-sim.o config 100
 ```
 
-### 缓存的初始化
+### The initialization & destruction function of BlockCacheSim
 
 ```
 init_cache()//函数读取配置文件并对缓存进行初始化
 destroy_cache()//销毁缓存
 ```
 
+### The basic structure of BlockCacheSim
 
-### 运行缓存
-main()函数通过调用Run对象的exec()方法运行缓存,exec()函数调用了Algorithm类中的kernel()方法。因此kernel()是整个cache-sim的核心方法。
 
-不同的缓存替换算法都继承了Algorithm这个算法父类，并且实现了父类中的虚函数map_operation()，kernel()函数通过调用不同的map_operation()实现不同的替换策略，这一点类似于flashcache的实现，flashcache实现的就是map_operation()所实现的功能，而kernel()则类似于device-mapper层提供的转发功能。
+* main()函数通过调用Run对象的exec()方法运行缓存,exec()函数调用了Algorithm类中的kernel()方法。因此kernel()是整个cache-sim的核心方法。
+
+* 不同的缓存替换算法都继承了Algorithm这个算法父类，并且实现了父类中的虚函数map_operation()，kernel()函数通过调用不同的map_operation()实现不同的替换策略，这一点类似于flashcache的实现，flashcache实现的就是map_operation()所实现的功能，而kernel()则类似于device-mapper层提供的转发功能。
 
 ### 结果显示
 ![image](http://onx1obrfu.bkt.clouddn.com/joystorage/blogs/缓存模拟器-cache-sim1.jpg)
