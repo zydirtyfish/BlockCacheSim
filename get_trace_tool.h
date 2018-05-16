@@ -128,10 +128,10 @@ public:
 
     void get_progress_ratio()
     {
-        if(curr_rec % 500000 == 0)
+        if(curr_rec % 100000 == 0)
         {
-            printf("\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b");
-            cout << "progress ratio:" << (u_int64_t)(curr_rec * 100.0) / total_rec << "%" << endl;
+            printf("\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b");
+            cout << "progress ratio:" << (u_int64_t)(curr_rec * 100.0) / total_rec << "%";
         }
     }
 
