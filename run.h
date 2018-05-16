@@ -249,35 +249,35 @@ public:
 		char unit[4][4]={"KB","MB","GB","TB"};
 		fprintf(fp,"----------reuse_dis_cdf----------\n");
 		for(int i = 0; i < 40 ;i++)
-        {
-            fprintf(fp,"%.0lf%s\t",pow(2,i%10),unit[i/10]);
-            if(ctx->stat->reuse_dis_cdf[i]==1)
-            	break;
-        }
-        fprintf(fp,"\n");
+		{
+		    fprintf(fp,"%.0lf%s\t",pow(2,(i+3)%10),unit[(i+3)/10]);
+		    if(ctx->stat->reuse_dis_cdf[i]==1)
+			break;
+		}
+		fprintf(fp,"\n");
 		for(int i = 0; i < 40 ;i++)
-        {
-            fprintf(fp,"%.2lf\t",ctx->stat->reuse_dis_cdf[i]);
-            if(ctx->stat->reuse_dis_cdf[i]==1)
-            	break;
-        }
-        fprintf(fp,"\n");
+		{
+		    fprintf(fp,"%.2lf\t",ctx->stat->reuse_dis_cdf[i]);
+		    if(ctx->stat->reuse_dis_cdf[i]==1)
+			break;
+		}
+		fprintf(fp,"\n");
 
-        fprintf(fp,"----------frequency_cdf----------\n");
-		for(int i = 0; i < 40 ;i++)
-        {
-            fprintf(fp,"%.0lf\t",pow(2,i));
-            if(ctx->stat->freq_cdf[i]==1)
-            	break;
-        }
-        fprintf(fp,"\n");
-		for(int i = 0; i < 40 ;i++)
-        {
-            fprintf(fp,"%.2lf\t",ctx->stat->freq_cdf[i]);
-            if(ctx->stat->freq_cdf[i]==1)
-            	break;
-        }
-        fprintf(fp,"\n");
-        fclose(fp);
+		fprintf(fp,"----------frequency_cdf----------\n");
+			for(int i = 0; i < 40 ;i++)
+		{
+		    fprintf(fp,"%.0lf\t",pow(2,i));
+		    if(ctx->stat->freq_cdf[i]==1)
+			break;
+		}
+		fprintf(fp,"\n");
+			for(int i = 0; i < 40 ;i++)
+		{
+		    fprintf(fp,"%.2lf\t",ctx->stat->freq_cdf[i]);
+		    if(ctx->stat->freq_cdf[i]==1)
+			break;
+		}
+		fprintf(fp,"\n");
+		fclose(fp);
 	}
 };
