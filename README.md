@@ -7,7 +7,7 @@
 git clone https://github.com/zydirtyfish/BlockCacheSim.git
 ```
 
-* Enter the BlockCacheSim directory, and use command *make* to compile
+* Enter the BlockCacheSim directory, and use command ```*make*``` to compile
 
 * Use command *make run* to execute the sample program
 
