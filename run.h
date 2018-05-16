@@ -240,8 +240,8 @@ public:
 		FILE *fp = fopen(name_tmp,"a+");
 		astat->stat_end(ctx);/*最后处理结果*/
 
-		fprintf(fp,"<---------------------统计输出--------------------->\n");
-		fprintf(fp,"文件名:%s\n",ctx->log_prefix);
+		fprintf(fp,"<---------------------Statistical Reuslts--------------------->\n");
+		fprintf(fp,"File Name:%s\n",ctx->log_prefix);
 		fprintf(fp,"throughput\t%.2lfGB\n",ctx->stat->throughput*4.0 / (1024*1024));
 		fprintf(fp,"unique data\t%.2lfGB\n",ctx->stat->uni_data*4.0 / (1024*1024));
 		fprintf(fp,"re-access data\t%.2lfGB\n",ctx->stat->re_access_data*4.0 / (1024*1024));
