@@ -1,38 +1,39 @@
-#trace格式类型
+#trace type
 #define MSR 1 http://iotta.snia.org/tracetypes/3
 #define UMASS 2 http://traces.cs.umass.edu/index.php/Storage/Storage
 trace_type=1
 
-#缓存替换算法的类型
+#algorithm type
 #FIFO 0
 #LRU 1
 #OPT 2
 #ARC 3
 #LARC 4
-#define MRU 5
+#MRU 5
+#LEA 101
 algorithm_type=101
 
-#缓存的大小
+#cache size
 block_num_conf=10000
 
-#块大小
+#block size
 block_size_conf=4096
 
-#写策略
+#write strategy
 write_algorithm_conf=1
 
-#日志的开始
+#the start number of the log
 log_start=0
 
-#每次读取的日志数
+#the end number of the log
 log_num=1
 
-#日志文件的前缀
+#file name
 log_prefix=./trace/example.csv
 
-#输出文件前缀
+#Output directory
 out_prefix=./stat/
 
-#懒惰参数
+#lazy parameters
 PARA=2
 K=1
