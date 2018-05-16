@@ -8,6 +8,7 @@
 #include "opt.h"
 #include "lea.h"
 #include "mru.h"
+#include <math.h>
 
 class RUN
 {
@@ -248,9 +249,10 @@ public:
 		fprintf(fp,"read ratio\t%.2lf%\n",ctx->stat->get_read_ratio());
 		char unit[4][4]={"KB","MB","GB","TB"};
 		fprintf(fp,"----------reuse_dis_cdf----------\n");
+		int tmpp = log(ctx->block_size_conf / 1024) / log(2);
 		for(int i = 0; i < 40 ;i++)
 		{
-		    fprintf(fp,"%.0lf%s\t",pow(2,(i+3)%10),unit[(i+3)/10]);
+		    fprintf(fp,"%.0lf%s\t",pow(2,(i+tmpp)%10),unit[(i+tmpp)/10]);
 		    if(ctx->stat->reuse_dis_cdf[i]==1)
 			break;
 		}
