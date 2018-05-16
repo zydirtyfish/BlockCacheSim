@@ -12,7 +12,8 @@ git clone https://github.com/zydirtyfish/BlockCacheSim.git
 * Use command ```make run``` to execute the sample program
 
 ### Download the trace file
-You can get more trace file from [UMassTraceRepository](http://traces.cs.umass.edu/index.php/Storage/Storage) or [SNIA Website](http://iotta.snia.org/tracetypes/3).
+
+* The sample program uses the trace file ```example.csv``` under the directory ```trace```. You can get more trace file from [UMassTraceRepository](http://traces.cs.umass.edu/index.php/Storage/Storage) or [SNIA Website](http://iotta.snia.org/tracetypes/3). You can match the trace file format by adjusting the trace_type in the configuration file.
 
 ### 配置文件
 缓存所有的配置信息在config文件中，配置文件属性与值之间以等号连接，注释以#开头
