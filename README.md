@@ -1,8 +1,8 @@
-# cache-sim_v1.0
+# BlockCacheSim
 
-### 下载与编译
-通过下列命令下载
+### Download & compile
 
+Download via the following command
 ```
 git clone https://github.com/zydirtyfish/cache-sim_v1.0.git
 ```
