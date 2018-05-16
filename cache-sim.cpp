@@ -97,7 +97,7 @@ void init_cache(struct cache_c *ctx,const char *config_file)
 void destroy_cache(struct cache_c *ctx)
 {	
 	delete ctx->stat;
-	if(ctx->algorithm_type != ARC && ctx->algorithm_type != LIRS)
+	if(ctx->algorithm_type != ARC && ctx->algorithm_type != LEA)
 		free(ctx->cache_blk);
 	free(ctx);
 }
