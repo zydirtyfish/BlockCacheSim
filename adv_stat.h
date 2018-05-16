@@ -60,17 +60,12 @@ public: //缓存基本操作
 
     void stat_end(cache_c *ctx)
     {
-	u_int64_t two = 0;
         for(unordered_map<string,struct stat_map_entry *>::iterator it=io_map.begin();it != io_map.end();++it)
         {
             ctx->stat->uni_data++;
             struct stat_map_entry *s = it->second;
             ctx->stat->throughput += s->access_times;
             ctx->stat->re_access_data += s->access_times - 1;
-	    if(s->access_times <= 5&&s->access_times > 1)
-	    {
-		two++;	
-	    }
             /*构建频次分布*/
             int index_tmp = log(s->access_times) / log(2) + 1;
             if(s->access_times % 2 == 0)
@@ -101,7 +96,6 @@ public: //缓存基本操作
         {
             ctx->stat->reuse_dis_cdf[i] = ctx->stat->reuse_dis_cdf[i] *1.0 / sum_tmp;
         }
-	cout << two*100.0/io_map.size() << endl;
     }
  
 };
