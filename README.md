@@ -46,19 +46,13 @@ The program entry is in the main function of ```cache-sim.cpp```. It can be foun
 ./cache-sim.o config 100
 ```
 
-### The initialization & destruction function of BlockCacheSim
-
-```
-init_cache()//函数读取配置文件并对缓存进行初始化
-destroy_cache()//销毁缓存
-```
-
 ### The basic structure of BlockCacheSim
 
-
-* main()函数通过调用Run对象的exec()方法运行缓存,exec()函数调用了Algorithm类中的kernel()方法。因此kernel()是整个cache-sim的核心方法。
-
-* 不同的缓存替换算法都继承了Algorithm这个算法父类，并且实现了父类中的虚函数map_operation()，kernel()函数通过调用不同的map_operation()实现不同的替换策略，这一点类似于flashcache的实现，flashcache实现的就是map_operation()所实现的功能，而kernel()则类似于device-mapper层提供的转发功能。
+- The initialization funtion ```init_cache()```.
+- The destruction function ```destroy_cache()```.
+- The function ```main()```  is the entrance to the program which calls the method ```exec()``` of the instance of class ```Run```.
+- The method ```exec()``` calls the method ```kernel()``` of the instance of class ```Algorithm```. ```kernel()``` is the core method of BlockCacheSim.
+- Different cache replacement algorithm classes inherit the class ```Algorithm``` and implemented the virtual function ```map_operation()``` of the parent class ```Algorithm```. The function ```kernel()```  implements different replacement strategies by calling different ```map_operation()``` functions. This is similar to the implementation of [flashcache](https://github.com/facebookarchive/ flashcache) (an open source block level cache for flash cache). The duty of function ```map_operation()``` is similar to the duty of flashcache, and the function ```kernel()``` is similar to the device-mapper layer.
 
 <!--### 结果显示
 ![image](http://onx1obrfu.bkt.clouddn.com/joystorage/blogs/缓存模拟器-cache-sim1.jpg)-->
