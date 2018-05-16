@@ -194,7 +194,7 @@ public:
 			FILE *fp = fopen(name_tmp,"a+");
 			fprintf(fp,"\n--------------------------------------------------------------------------------\n");
 			fprintf(fp,"cache_size: %llublocks\twrite_policy: write through\n",ctx->block_num_conf);
-			fprintf(fp,"[Lazy Parameters]\tPARA:%.2lf\tK:%.2lf\n",ctx->PARA,ctx->K);
+			fprintf(fp,"[Lazy Parameters]\tPARA:%d\tK:%.2lf\n",ctx->PARA,ctx->K);
 			fprintf(fp,"--------------------------------------------------------------------------------\n");
 			fprintf(fp,"name\t\thit_ratio\t\tssd_write\n");
 			fprintf(fp,"--------------------------------------------------------------------------------\n");
