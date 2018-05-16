@@ -1,18 +1,18 @@
 # BlockCacheSim
 
-### Download & compile
+### Download & Compile
 
 * Download via the following command
 ```
 git clone https://github.com/zydirtyfish/BlockCacheSim.git
 ```
 
-* Enter the BlockCacheSim directory, and use command ```*make*``` to compile
+* Enter the BlockCacheSim directory, and use command ```make``` to compile
 
-* Use command *make run* to execute the sample program
+* Use command ```make run``` to execute the sample program
 
-### trace下载
-demo程序中分析的是trace文件夹的下的example文件，更多的trace文件可在网站[SNIA网站](http://iotta.snia.org/tracetypes/3)上下载。
+### Download the trace file
+You can get more trace file from [UMassTraceRepository](http://traces.cs.umass.edu/index.php/Storage/Storage) or [SNIA Website](http://iotta.snia.org/tracetypes/3).
 
 ### 配置文件
 缓存所有的配置信息在config文件中，配置文件属性与值之间以等号连接，注释以#开头
