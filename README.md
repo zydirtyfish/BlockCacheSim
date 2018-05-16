@@ -2,22 +2,14 @@
 
 ### Download & compile
 
-Download via the following command
+* Download via the following command
 ```
-git clone https://github.com/zydirtyfish/cache-sim_v1.0.git
-```
-
-进入目录，make进行编译
-
-```
-make
+git clone https://github.com/zydirtyfish/BlockCacheSim.git
 ```
 
-输入下列命令可运行demo程序
+* Enter the BlockCacheSim directory, and use command *make* to compile
 
-```
-make run
-```
+* Use command *make run* to execute the sample program
 
 ### trace下载
 demo程序中分析的是trace文件夹的下的example文件，更多的trace文件可在网站[SNIA网站](http://iotta.snia.org/tracetypes/3)上下载。
