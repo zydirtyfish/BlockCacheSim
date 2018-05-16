@@ -11,29 +11,27 @@ git clone https://github.com/zydirtyfish/BlockCacheSim.git
 
 * Use command ```make run``` to execute the sample program
 
-### Download the trace file
+### To download the trace file
 
 * The sample program uses the trace file ```example.csv``` under the directory ```trace```. You can get more trace file from [UMassTraceRepository](http://traces.cs.umass.edu/index.php/Storage/Storage) or [SNIA Website](http://iotta.snia.org/tracetypes/3). You can match the trace file format by adjusting the trace_type in the configuration file.
 
-### 配置文件
-缓存所有的配置信息在config文件中，配置文件属性与值之间以等号连接，注释以#开头
+### Configuration file
+* All the configuration information of BlockCacheSim is in the file ```config```, it uses equals sign to connnect the config attributes and their values. 
+* Comments begin with #
 ```
-#缓存替换算法的类型
+#algorithm type
 algorithm_type=0
-#缓存的大小
+#cache size
 block_num_conf=65536
-#块大小
+#block size
 block_size_conf=4096
-#写策略
+#write strategy
 write_algorithm_conf=1
-#日志的开始
-log_start=0
-#每次读取的日志数
-log_num=1
-#日志文件的前缀
+
+#the name of the log file
 log_prefix=./trace/example.csv
 
-#懒惰参数
+#lazy parameters
 PARA=4
 k=16
 ```
