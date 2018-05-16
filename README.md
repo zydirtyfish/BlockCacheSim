@@ -55,7 +55,44 @@ The program entry is in the main function of ```cache-sim.cpp```. It can be foun
 ![image](http://onx1obrfu.bkt.clouddn.com/joystorage/blogs/缓存模拟器-cache-sim1.jpg)-->
 
 ### Sample output
-![image](http://onx1obrfu.bkt.clouddn.com/joystorage/blogs/缓存模拟器-cache-sim2.jpg)
+<---------------------Statistical Reuslts--------------------->
+File Name:./trace/example.csv
+throughput	14.00GB
+unique data	2.18GB
+re-access data	11.82GB
+read ratio	76.17
+----------reuse_dis_cdf----------
+1KB	2KB	4KB	8KB	16KB	32KB	64KB	128KB	256KB	512KB	1MB	2MB	4MB	8MB	16MB	32MB	64MB	128MB	256MB	512MB	1GB	2GB	4GB	
+0.00	0.01	0.02	0.05	0.08	0.09	0.10	0.12	0.15	0.18	0.19	0.20	0.21	0.51	0.81	0.83	0.85	0.87	0.89	0.91	0.93	0.97	1.00	
+----------frequency_cdf----------
+1	2	4	8	16	32	64	128	256	512	1024	2048	4096	8192	16384	32768	
+0.00	0.83	0.91	0.96	0.98	0.98	0.98	0.99	1.00	1.00	1.00	1.00	1.00	1.00	1.00	1.00	
+
+--------------------------------------------------------------------------------
+cache_size: 10000blocks	write_policy: write through
+--------------------------------------------------------------------------------
+name		hit_ratio		ssd_write
+--------------------------------------------------------------------------------
+LRU		18.69		3601641
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+cache_size: 10000blocks	write_policy: write through
+--------------------------------------------------------------------------------
+name		hit_ratio		ssd_write
+--------------------------------------------------------------------------------
+OPT		63.73		1990351
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+cache_size: 10000blocks	write_policy: write through
+--------------------------------------------------------------------------------
+name		hit_ratio		ssd_write
+--------------------------------------------------------------------------------
+ARC		32.85		3080631
+--------------------------------------------------------------------------------
+
+<!--![image](http://onx1obrfu.bkt.clouddn.com/joystorage/blogs/缓存模拟器-cache-sim2.jpg)-->
 
 ### To add algorithms
 - First create a replacement algorithm header file ```x.h``` according to the ```lru.h``` template, and then modify the logic of the function ```map_operation()```.
