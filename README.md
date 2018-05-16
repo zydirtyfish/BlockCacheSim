@@ -30,10 +30,6 @@ write_algorithm_conf=1
 
 #the name of the log file
 log_prefix=./trace/example.csv
-
-#lazy parameters
-PARA=4
-k=16
 ```
 
 The program entry is in the main function of ```cache-sim.cpp```. It can be found that the configuration file is passed in through the command line parameters. That is we should using the following command to execute the program.
