@@ -55,24 +55,24 @@ The program entry is in the main function of ```cache-sim.cpp```. It can be foun
 - Different cache replacement algorithm classes inherit the parent class ```Algorithm``` and implemente the virtual function ```map_operation()``` of the parent class. The function ```kernel()```  implements different replacement strategies by calling different ```map_operation()``` functions. 
 - This is similar to the implementation of [flashcache](https://github.com/facebookarchive/flashcache) (an open source block level cache for flash cache). The duty of function ```map_operation()``` is similar to the duty of flashcache, and the function ```kernel()``` is similar to the device-mapper layer.
 
-<!--### 结果显示
+<!--### The results
 ![image](http://onx1obrfu.bkt.clouddn.com/joystorage/blogs/缓存模拟器-cache-sim1.jpg)-->
 
 ### Sample output
 ![image](http://onx1obrfu.bkt.clouddn.com/joystorage/blogs/缓存模拟器-cache-sim2.jpg)
 
 ### To add algorithms
-- 先照着lru.h的模板新建一个替换算法的头文件x.h,然后修改算法中map_operation()函数的逻辑
-- 修改完x.h头文件后，在cache-sim.h头文件中缓存算法配置区的位置添加一行x替换算法的定义 #define X n。其中X为算法的名称，n为正整数，但不能与之前的定义整数重复。
-- 最后修改run.h头文件，首先需要引入头文件#include "x.h"。然后在Run类的私有成员变量中添加一个X的对象__X * x，然后修改RUN()函数的初始化算法类部分代码。最后修改exec()函数缓存操作部分代码。
+- First create a replacement algorithm header file ```x.h``` according to the ```lru.h``` template, and then modify the logic of the function ```map_operation()```.
+- After modifying the header file ```x.h```, add the line ```#define X n``` to the location of the cache algorithm configuration area in the header file ```cache-sim.h```. ```X``` is the name of the algorithm and ```n``` is a positive integer, but it cannot be repeated with the previously defined integer.
+- Finally modify the header file ```run.h```. Firstly it needs to import the header file ```#include "x.h"```. Then add an ```X``` object (```__X * x```) as a private variable for the class ```Run```, and then modify the initialization part of function ```RUN()```. Lastly modified the cache operation part of class ```RUN``` (```exec()```).
 
 ### Update
 BlockCacheSim will also implement more algorithms proposed recently, so stay tuned!
 
 ### About us
-Yu Zhang
+<!--Yu Zhang-->
 
 ### Statement
 Non-commercial reprint please indicate the author and source. Commercial reprint please contact the author himself.
 
-非商业转载请注明作者及出处。商业转载请联系作者本人。
+<!-- 非商业转载请注明作者及出处。商业转载请联系作者本人-->
