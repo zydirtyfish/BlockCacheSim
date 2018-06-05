@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////
 // cache-sim for block level cache test
-// Author: Zhang Yu
+// Author: zydirtyfish
 // Date: 2017-08
 
 #include "Config.h"
