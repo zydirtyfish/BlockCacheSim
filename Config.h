@@ -29,7 +29,7 @@ public:
 	{
 		ifstream fin(key_path); 
 		if(fin)
-    	{
+    		{
 			char str[LINE_LENGTH];
 			while( fin.getline(str,LINE_LENGTH) )
 			{
