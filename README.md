@@ -104,6 +104,7 @@ ARC		32.85		3080631
 BlockCacheSim will also implement more algorithms proposed recently, so stay tuned!
 
 ### About us
+**Yu Zhang** is currently working toward the PhD degree in Wuhan National Laboratory for Optoelectronics and School of Computer Science and Technology, Huazhong University of Science and Technology, Wuhan, China.
 <!--Yu Zhang-->
 
 ### Statement
