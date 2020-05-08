@@ -1,0 +1,13 @@
+PROJ_INC=-I./
+
+PROJ_LIB =
+
+PROJ_OBJ=clog.o\
+		 cfg_file.o\
+		 ssd_cache.o\
+		 lru_cache.o\
+		 lea_cache.o\
+		 cache.o\
+		 device_mapper.o\
+		 get_trace_tool.o\
+		 cache_sim.o \
